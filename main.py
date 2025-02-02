@@ -47,7 +47,7 @@ async def scratch_expand(channel_id:int, id:int):
                 ))
             embeds.append(discord.Embed(
                 title="ステータス",
-                description=f"<:love:1330407885934694411> : {data['stats']['loves']} | <:fav:1330407870990127145> : {data['stats']['favorites']} | <:remix:1330407897007521793> : {data['stats']['remixes']} | <:views:1330407909326065756> : {data['stats']['views']}",
+                description=f"<:loves:1335612168388739072> : {data['stats']['loves']} | <:fav:1335612107688775702> : {data['stats']['favorites']} | <:remix:1335612215918727238> : {data['stats']['remixes']} | <:views:1335612280515203244> : {data['stats']['views']}",
                 color=0xfda747
             ))
             embeds[0].set_author(name=data["author"]["username"],icon_url=data["author"]["profile"]["images"]["90x90"])
