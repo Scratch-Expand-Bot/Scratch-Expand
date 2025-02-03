@@ -4,7 +4,7 @@ from os import getenv
 import asyncio
 import aiohttp
 import re
-from discord.ext import commands
+from discord.ext import commands, tasks
 from keep_alive import keep_alive
 
 intents=discord.Intents.default()
@@ -21,11 +21,12 @@ async def on_ready():
     try:
         synced = await bot.tree.sync()
         print(f'Synced {len(synced)} commands')
+        status.start()
         
     except Exception as e:
         print(f'Error syncing commands: {e}')
 
-@discord.ext.tasks.loop(seconds=30)
+@tasks.loop(seconds=30)
 async def status():
     global now_status
 
@@ -35,6 +36,8 @@ async def status():
     if now_status == 1:
         data1 = discord.Activity(type=discord.ActivityType.competing, name=f"{len(bot.guilds)}サーバー")
         now_status =0
+
+    await bot.change_presence(activity=data1)
 
 async def scratch_expand(channel_id:int, id:int):
     async with aiohttp.ClientSession() as session:
