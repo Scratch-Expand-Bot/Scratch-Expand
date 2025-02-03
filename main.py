@@ -13,14 +13,28 @@ intents.guilds = True
 
 bot = commands.Bot(command_prefix="s!", intents=intents)
 
+now_status = 0
+
 @bot.event
 async def on_ready():
     print(f'{bot.user} としてログインしました^o^')
     try:
         synced = await bot.tree.sync()
         print(f'Synced {len(synced)} commands')
+        
     except Exception as e:
         print(f'Error syncing commands: {e}')
+
+@discord.ext.tasks.loop(seconds=30)
+async def status():
+    global now_status
+
+    if now_status == 0:
+        data1 = discord.Activity(type=discord.ActivityType.playing, name="Scratchプロジェクトリンク展開")
+        now_status = 1
+    if now_status == 1:
+        data1 = discord.Activity(type=discord.ActivityType.competing, name=f"{len(bot.guilds)}サーバー")
+        now_status =0
 
 async def scratch_expand(channel_id:int, id:int):
     async with aiohttp.ClientSession() as session:
