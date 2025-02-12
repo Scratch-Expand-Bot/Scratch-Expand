@@ -26,14 +26,14 @@ async def on_ready():
     except Exception as e:
         print(f'Error syncing commands: {e}')
 
-@tasks.loop(seconds=30)
+@tasks.loop(seconds=10)
 async def status():
     global now_status
 
     if now_status == 0:
         data1 = discord.Activity(type=discord.ActivityType.playing, name="Scratchプロジェクトリンク展開")
         now_status = 1
-    if now_status == 1:
+    elif now_status == 1:
         data1 = discord.Activity(type=discord.ActivityType.competing, name=f"{len(bot.guilds)}サーバー")
         now_status =0
 
