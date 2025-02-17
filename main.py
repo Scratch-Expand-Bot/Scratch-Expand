@@ -74,7 +74,6 @@ async def scratch_expand(channel_id:int, id:int):
 
 @bot.event
 async def on_message(message:discord.Message):
-    message_content = message.content
     channel_id = message.channel.id
 
     if "scratch.mit.edu/projects/" in message.content:
